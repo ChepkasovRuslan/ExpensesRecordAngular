@@ -1,7 +1,7 @@
 export class Expense {
   constructor(
     id: string,
-    descriptiion: string,
+    description: string,
     sum: number,
     date: string
   ) { }
