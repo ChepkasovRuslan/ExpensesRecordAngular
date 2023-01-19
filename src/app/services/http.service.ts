@@ -9,10 +9,10 @@ import { Expense } from "../models/expense.model";
 export class HttpService {
   constructor(private http: HttpClient) { }
 
-  getAllExpenses = (): Observable<Expense> => {
-    return this.http.get('http://localhost:8000/expenses').pipe(map((result: any) =>
-      result.map((item: any) =>
-        new Expense(item._id, item.description, item.sum, item.date))
-    ));
-  }
+  // getAllExpenses = (): Observable<Expense> => {
+  //   return this.http.get('http://localhost:8000/expenses').pipe(map((result: any) =>
+  //     result.map((item: any) =>
+  //       new Expense(item._id, item.description, item.sum, item.date))
+  //   ));
+  // }
 }
