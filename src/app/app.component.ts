@@ -12,7 +12,12 @@ import { Result } from 'express-validator';
 export class AppComponent implements OnInit {
   title = 'ExpensesRecordAngular';
 
+  totalSum = 0;
+
   constructor(private httpService: HttpService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.httpService.getTotalSum().subscribe(result =>
+      this.totalSum = result.totalSum);
+  }
 }

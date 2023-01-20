@@ -1,5 +1,5 @@
 main {
-  width: auto;
+  width: 1000px;
   margin: auto;
 }
 
@@ -15,7 +15,7 @@ main {
 }
 
 #field-description {
-  width: 500px;
+  width: 550px;
 }
 
 #field-sum {
@@ -38,4 +38,9 @@ main {
 .add-item-container {
   display: flex;
   gap: 20px;
+}
+
+#total-sum-card {
+  width: 300px;
+  font-size: 20px;
 }
