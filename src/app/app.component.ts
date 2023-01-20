@@ -7,17 +7,16 @@ import { MatTableDataSource } from '@angular/material/table';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HttpService]
 })
 export class AppComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
-  displayedColumns: string[] = ['index', 'description', 'date', 'sum', 'deleteExpense'];
-  dataSource: MatTableDataSource<Expense> = new MatTableDataSource<Expense>();
-  totalSum = 0;
+  public readonly displayedColumns: string[] = ['index', 'description', 'date', 'sum', 'deleteExpense'];
+  public dataSource: MatTableDataSource<Expense> = new MatTableDataSource<Expense>();
+  public totalSum = 0;
 
-  description = '';
-  sum = 0;
+  public description = '';
+  public sum = 0;
 
   ngOnInit() {
     this.refresh();
@@ -37,14 +36,22 @@ export class AppComponent implements OnInit {
 
   deleteExpense(element: any) {
     this.httpService.deleteExpense(element._id)
-      .subscribe(_ => this.refresh());
+      .subscribe(() => this.refresh());
   }
 
   refresh() {
-    this.httpService.getAllExpenses().subscribe(result =>
-      this.dataSource = new MatTableDataSource<Expense>(result));
-
-    this.httpService.getTotalSum().subscribe(result =>
-      this.totalSum = result.totalSum);
+    try {
+      this.httpService.getAllExpenses()
+        .subscribe(
+          result => {
+            this.totalSum = result.reduce((acc, obj) => acc + obj.sum, 0);
+            this.dataSource = new MatTableDataSource<Expense>(result)
+          }
+        );
+    } catch (error) {
+      this.totalSum = 0;
+      this.dataSource = new MatTableDataSource<Expense>();
+      console.log(error);
+    }
   }
 }
