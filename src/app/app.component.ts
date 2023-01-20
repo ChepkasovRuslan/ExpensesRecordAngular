@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from './services/http.service';
-import { Expense } from './models/expense.model';
+import { Expense } from './interfaces/expense.interface';
+import { Result } from 'express-validator';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,12 @@ import { Expense } from './models/expense.model';
 export class AppComponent implements OnInit {
   title = 'ExpensesRecordAngular';
 
+  totalSum = 0;
+
   constructor(private httpService: HttpService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.httpService.getTotalSum().subscribe(result =>
+      this.totalSum = result.totalSum);
+  }
 }
