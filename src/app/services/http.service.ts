@@ -8,4 +8,10 @@ import { Expense } from "../models/expense.model";
 @Injectable()
 export class HttpService {
   constructor(private http: HttpClient) { }
+
+  getAllExpenses = (): Observable<Expense> => {
+    return this.http.get('http://localhost:8000/expenses').pipe(map((result: any) => {
+      return result.map((item: any) => new Expense(item._id, item.description, item.sum, item.date));
+    }));
+  }
 }

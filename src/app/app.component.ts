@@ -14,5 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
   ngOnInit() {
+    this.httpService.getAllExpenses().subscribe(result => console.log(result));
   }
 }
