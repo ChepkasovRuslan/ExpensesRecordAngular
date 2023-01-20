@@ -10,12 +10,8 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  getAllExpenses = (): Observable<Expense[]> => {
-    return this.http.get<Expense[]>(this.URL + '/expenses');
-  }
+  getAllExpenses = (): Observable<Expense[]> => this.http.get<Expense[]>(this.URL + '/expenses');
 
-  createExpense = (body: Expense): Observable<Expense> => {
-    return this.http.post<Expense>(this.URL + '/expenses', body);
-  }
+  createExpense = (body: Expense): Observable<Expense> => this.http.post<Expense>(this.URL + '/expenses', body);
 
 }
