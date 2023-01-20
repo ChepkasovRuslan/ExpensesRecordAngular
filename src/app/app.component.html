@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<main>
+  <h1 class="head-text italic">Учет моих расходов</h1>
+
+  <div class="add-item-container flex align-content-space-between-center">
+    <mat-form-field id="field-description" appearance="fill">
+      <mat-label>Куда было потрачено</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field id="field-sum" appearance="fill">
+      <mat-label>Сколько было потрачено (руб.)</mat-label>
+      <input matInput type="number" class="example-right-align" placeholder="0">
+    </mat-form-field>
+    <button class="alight-self-center" mat-raised-button color="primary">Добавить</button>
+  </div>
+</main>
