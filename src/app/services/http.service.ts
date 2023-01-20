@@ -16,4 +16,6 @@ export class HttpService {
 
   updateExpense = (id: string, body: Expense): Observable<Expense> => this.http.patch<Expense>(this.URL + '/expenses/' + id, body);
 
+  deleteExpense = (id: string): Observable<any> => this.http.delete<Expense>(this.URL + '/expenses/' + id);
+
 }
