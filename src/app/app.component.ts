@@ -12,7 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class AppComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
-  displayedColumns: string[] = ['index', 'description', 'date', 'sum'];
+  displayedColumns: string[] = ['index', 'description', 'date', 'sum', 'deleteExpense'];
   dataSource: MatTableDataSource<Expense> = new MatTableDataSource<Expense>();
   totalSum = 0;
 
@@ -33,6 +33,11 @@ export class AppComponent implements OnInit {
       description: this.description,
       sum: this.sum
     }).subscribe(_ => this.refresh());
+  }
+
+  deleteExpense(element: any) {
+    this.httpService.deleteExpense(element._id)
+      .subscribe(_ => this.refresh());
   }
 
   refresh() {
