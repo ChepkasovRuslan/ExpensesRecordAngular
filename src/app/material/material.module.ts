@@ -4,14 +4,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
-
+import { MatIconModule } from '@angular/material/icon'
 
 const MaterialComponents = [
   MatFormFieldModule,
   MatButtonModule,
   MatInputModule,
   MatCardModule,
-  MatTableModule
+  MatTableModule,
+  MatIconModule
 ]
 
 @NgModule({
