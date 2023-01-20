@@ -1,15 +1,41 @@
-:host {
+main {
+  width: auto;
+  margin: auto;
+}
+
+.head-text {
+  margin-top: 34px;
+  margin-bottom: 34px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+#field-description {
+  width: 500px;
+}
+
+#field-sum {
+  width: 300px;
+}
+
+.flex {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
+.align-content-space-between-center {
+  justify-content: center;
+  align-content: space-between;
 }
 
-.example-full-width {
-  width: 100%;
+.alight-self-center {
+  align-self: center;
+}
+
+.add-item-container {
+  display: flex;
+  gap: 20px;
 }
