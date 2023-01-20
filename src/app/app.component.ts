@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from './services/http.service';
-import { Expense } from './models/expense.model';
+import { Expense } from './interfaces/expense.interface';
+import { Result } from 'express-validator';
 
 @Component({
   selector: 'app-root',
