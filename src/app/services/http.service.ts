@@ -14,4 +14,6 @@ export class HttpService {
 
   createExpense = (body: Expense): Observable<Expense> => this.http.post<Expense>(this.URL + '/expenses', body);
 
+  updateExpense = (id: string, body: Expense): Observable<Expense> => this.http.patch<Expense>(this.URL + '/expenses/' + id, body);
+
 }
