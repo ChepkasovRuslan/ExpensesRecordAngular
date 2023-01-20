@@ -44,3 +44,7 @@ main {
   width: 300px;
   font-size: 20px;
 }
+
+#filter-field {
+  margin-top: 22px;
+}
