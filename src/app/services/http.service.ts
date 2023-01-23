@@ -11,18 +11,14 @@ export class HttpService {
 
   constructor(private http: HttpClient) {}
 
-  getAllExpenses = (): Observable<Expense[]> =>
-    this.http.get<Expense[]>(this.URL + '/expenses');
+  getAllExpenses = (): Observable<Expense[]> => this.http.get<Expense[]>(this.URL + '/expenses');
 
-  getTotalSum = (): Observable<TotalSum> =>
-    this.http.get<TotalSum>(this.URL + '/expenses/sum');
+  getTotalSum = (): Observable<TotalSum> => this.http.get<TotalSum>(this.URL + '/expenses/sum');
 
-  createExpense = (body: Expense): Observable<Expense> =>
-    this.http.post<Expense>(this.URL + '/expenses', body);
+  createExpense = (body: Expense): Observable<Expense> => this.http.post<Expense>(this.URL + '/expenses', body);
 
   updateExpense = (id: string, body: Expense): Observable<Expense> =>
     this.http.patch<Expense>(this.URL + '/expenses/' + id, body);
 
-  deleteExpense = (id: string): Observable<any> =>
-    this.http.delete<Expense>(this.URL + '/expenses/' + id);
+  deleteExpense = (id: string): Observable<any> => this.http.delete<Expense>(this.URL + '/expenses/' + id);
 }

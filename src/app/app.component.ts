@@ -13,15 +13,8 @@ import { HttpService } from './services/http.service';
 export class AppComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
-  public readonly displayedColumns: string[] = [
-    'index',
-    'description',
-    'date',
-    'sum',
-    'deleteExpense',
-  ];
-  public dataSource: MatTableDataSource<Expense> =
-    new MatTableDataSource<Expense>();
+  public readonly displayedColumns: string[] = ['index', 'description', 'date', 'sum', 'deleteExpense'];
+  public dataSource: MatTableDataSource<Expense> = new MatTableDataSource<Expense>();
   public totalSum = 0;
 
   public description = '';
