@@ -45,11 +45,19 @@ export class AppComponent implements OnInit {
         description: this.description,
         sum: this.sum,
       })
-      .subscribe(() => this.refresh());
+      .subscribe(() => {
+        this.clearFields();
+        this.refresh();
+      });
   }
 
   deleteExpense(element: any) {
     this.httpService.deleteExpense(element._id).subscribe(() => this.refresh());
+  }
+
+  clearFields() {
+    this.description = '';
+    this.sum = 0;
   }
 
   openEditDialog(element: any) {
