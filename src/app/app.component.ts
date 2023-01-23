@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
+import { catchError, of } from 'rxjs';
 
 import { Expense } from './interfaces/expense.interface';
 import { HttpService } from './services/http.service';
@@ -43,14 +44,19 @@ export class AppComponent implements OnInit {
   }
 
   refresh() {
-    try {
-      this.httpService.getAllExpenses().subscribe((result) => {
+    this.httpService
+      .getAllExpenses()
+      .pipe(
+        catchError(() => {
+          this.totalSum = 0;
+          this.dataSource = new MatTableDataSource<Expense>();
+
+          return of([]);
+        })
+      )
+      .subscribe((result: Expense[]) => {
         this.totalSum = result.reduce((acc, obj) => acc + obj.sum, 0);
         this.dataSource = new MatTableDataSource<Expense>(result);
       });
-    } catch (error) {
-      this.totalSum = 0;
-      this.dataSource = new MatTableDataSource<Expense>();
-    }
   }
 }
