@@ -1,1 +1,81 @@
-<router-outlet></router-outlet>
+<main>
+  <h1 class="head-text italic">Учет моих расходов</h1>
+
+  <div class="add-item-container flex align-content-space-between-center">
+    <mat-form-field id="field-description" appearance="fill">
+      <mat-label>Куда было потрачено</mat-label>
+      <input matInput [(ngModel)]="description" />
+    </mat-form-field>
+    <mat-form-field id="field-sum" appearance="fill">
+      <mat-label>Сколько было потрачено (руб.)</mat-label>
+      <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="sum" />
+    </mat-form-field>
+    <button class="alight-self-center" mat-raised-button color="primary" (click)="addExpense()">Добавить</button>
+  </div>
+
+  <mat-card id="total-sum-card">
+    <mat-card-content>Итого: {{ totalSum }} руб.</mat-card-content>
+  </mat-card>
+
+  <mat-form-field id="filter-field">
+    <mat-label>Найти</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>№</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Куда было потрачено</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Дата</th>
+      <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="sum">
+      <th mat-header-cell *matHeaderCellDef>Сумма (руб.)</th>
+      <td mat-cell *matCellDef="let element">{{ element.sum }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="updateExpense">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a home icon"
+          (click)="openEditDialog(element)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteExpense">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          color="primary"
+          aria-label="Example icon button with a home icon"
+          (click)="deleteExpense(element)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
+    </tr>
+  </table>
+</main>

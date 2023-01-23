@@ -1,0 +1,50 @@
+main {
+  width: 1000px;
+  margin: auto;
+}
+
+.head-text {
+  margin-top: 34px;
+  margin-bottom: 34px;
+  text-align: center;
+  font-size: 32px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+#field-description {
+  width: 550px;
+}
+
+#field-sum {
+  width: 300px;
+}
+
+.flex {
+  display: flex;
+}
+
+.align-content-space-between-center {
+  justify-content: center;
+  align-content: space-between;
+}
+
+.alight-self-center {
+  align-self: center;
+}
+
+.add-item-container {
+  display: flex;
+  gap: 20px;
+}
+
+#total-sum-card {
+  width: 300px;
+  font-size: 20px;
+}
+
+#filter-field {
+  margin-top: 22px;
+}

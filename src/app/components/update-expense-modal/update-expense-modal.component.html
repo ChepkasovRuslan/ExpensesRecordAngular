@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Редактировать запись</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" class="input">
+    <mat-label>Куда было потрачено</mat-label>
+    <input matInput [(ngModel)]="description" />
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill" class="input">
+    <mat-label>Сколько было потрачено</mat-label>
+    <input matInput [(ngModel)]="sum" />
+  </mat-form-field>
+</div>
+<div class="dialog-buttons-container" mat-dialog-actions>
+  <button mat-button (click)="close()">Отмена</button>
+  <button mat-button (click)="patchExpense()" cdkFocusInitial>ОК</button>
+</div>
