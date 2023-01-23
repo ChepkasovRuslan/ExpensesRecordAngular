@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, of } from 'rxjs';
 
+import { UpdateExpenseModalComponent } from './components/update-expense-modal/update-expense-modal.component';
 import { Expense } from './interfaces/expense.interface';
 import { HttpService } from './services/http.service';
 
@@ -12,9 +14,16 @@ import { HttpService } from './services/http.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, public dialog: MatDialog) {}
 
-  public readonly displayedColumns: string[] = ['index', 'description', 'date', 'sum', 'deleteExpense'];
+  public readonly displayedColumns: string[] = [
+    'index',
+    'description',
+    'date',
+    'sum',
+    'updateExpense',
+    'deleteExpense',
+  ];
   public dataSource: MatTableDataSource<Expense> = new MatTableDataSource<Expense>();
   public totalSum = 0;
 
@@ -41,6 +50,20 @@ export class AppComponent implements OnInit {
 
   deleteExpense(element: any) {
     this.httpService.deleteExpense(element._id).subscribe(() => this.refresh());
+  }
+
+  openEditDialog(element: any) {
+    this.dialog
+      .open(UpdateExpenseModalComponent, {
+        width: '700px',
+        data: {
+          id: element._id,
+          description: element.description,
+          sum: element.sum,
+        },
+      })
+      .afterClosed()
+      .subscribe(() => this.refresh());
   }
 
   refresh() {
