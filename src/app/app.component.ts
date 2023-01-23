@@ -1,23 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from './services/http.service';
-import { Expense } from './interfaces/expense.interface';
+
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { catchError, of } from 'rxjs';
+
+import { UpdateExpenseModalComponent } from './components/update-expense-modal/update-expense-modal.component';
+import { Expense } from './interfaces/expense.interface';
+import { HttpService } from './services/http.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [HttpService]
 })
 export class AppComponent implements OnInit {
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, public dialog: MatDialog) {}
 
-  displayedColumns: string[] = ['index', 'description', 'date', 'sum', 'deleteExpense'];
-  dataSource: MatTableDataSource<Expense> = new MatTableDataSource<Expense>();
-  totalSum = 0;
+  public readonly displayedColumns: string[] = [
+    'index',
+    'description',
+    'date',
+    'sum',
+    'updateExpense',
+    'deleteExpense',
+  ];
+  public dataSource: MatTableDataSource<Expense> = new MatTableDataSource<Expense>();
+  public totalSum = 0;
 
-  description = '';
-  sum = 0;
+  public description = '';
+  public sum = 0;
 
   ngOnInit() {
     this.refresh();
@@ -29,22 +40,46 @@ export class AppComponent implements OnInit {
   }
 
   addExpense() {
-    this.httpService.createExpense({
-      description: this.description,
-      sum: this.sum
-    }).subscribe(_ => this.refresh());
+    this.httpService
+      .createExpense({
+        description: this.description,
+        sum: this.sum,
+      })
+      .subscribe(() => this.refresh());
   }
 
   deleteExpense(element: any) {
-    this.httpService.deleteExpense(element._id)
-      .subscribe(_ => this.refresh());
+    this.httpService.deleteExpense(element._id).subscribe(() => this.refresh());
+  }
+
+  openEditDialog(element: any) {
+    this.dialog
+      .open(UpdateExpenseModalComponent, {
+        width: '700px',
+        data: {
+          id: element._id,
+          description: element.description,
+          sum: element.sum,
+        },
+      })
+      .afterClosed()
+      .subscribe(() => this.refresh());
   }
 
   refresh() {
-    this.httpService.getAllExpenses().subscribe(result =>
-      this.dataSource = new MatTableDataSource<Expense>(result));
+    this.httpService
+      .getAllExpenses()
+      .pipe(
+        catchError(() => {
+          this.totalSum = 0;
+          this.dataSource = new MatTableDataSource<Expense>();
 
-    this.httpService.getTotalSum().subscribe(result =>
-      this.totalSum = result.totalSum);
+          return of([]);
+        })
+      )
+      .subscribe((result: Expense[]) => {
+        this.totalSum = result.reduce((acc, obj) => acc + obj.sum, 0);
+        this.dataSource = new MatTableDataSource<Expense>(result);
+      });
   }
 }
