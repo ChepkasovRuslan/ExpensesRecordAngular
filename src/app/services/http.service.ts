@@ -13,6 +13,8 @@ export class HttpService {
 
   getAllExpenses = (): Observable<Expense[]> => this.http.get<Expense[]>(this.URL + '/expenses');
 
+  getExpense = (id: string): Observable<Expense> => this.http.get<Expense>(this.URL + '/expenses/' + id);
+
   getTotalSum = (): Observable<TotalSum> => this.http.get<TotalSum>(this.URL + '/expenses/sum');
 
   createExpense = (body: Expense): Observable<Expense> => this.http.post<Expense>(this.URL + '/expenses', body);
