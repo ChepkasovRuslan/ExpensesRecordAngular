@@ -1,7 +1,7 @@
 <main>
   <div class="flex-center">
     <h1 class="head-text italic">Учет моих расходов</h1>
-    <mat-icon class="clickable" (click)="refreshExpenses()">refresh</mat-icon>
+    <mat-icon class="clickable refresh-image" (click)="refreshExpenses()">refresh</mat-icon>
   </div>
 
   <div class="add-item-container flex align-content-space-between-center">
@@ -9,6 +9,7 @@
       <mat-label>Куда было потрачено</mat-label>
       <input matInput [(ngModel)]="description" />
     </mat-form-field>
+
     <mat-form-field id="field-sum" appearance="fill">
       <mat-label>Сколько было потрачено (руб.)</mat-label>
       <input matInput type="number" class="example-right-align" placeholder="0" [(ngModel)]="sum" />
@@ -33,7 +34,9 @@
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>Куда было потрачено</th>
-      <td class="description-content" mat-cell *matCellDef="let element">{{ element.description }}</td>
+      <td mat-cell *matCellDef="let element" (click)="selectExpense(element)" class="description-content clickable">
+        {{ element.description }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="date">
