@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 
 import { ExpenseRaw } from 'src/app/interfaces/expense-raw.interface';
@@ -24,7 +25,8 @@ export class ExpenseComponent implements OnInit {
     private httpService: HttpService,
     private snackBarService: SnackBarService,
     public editDialog: MatDialog,
-    public deleteDialog: MatDialog
+    public deleteDialog: MatDialog,
+    public router: Router
   ) {}
 
   public readonly displayedColumns: string[] = [
@@ -40,6 +42,11 @@ export class ExpenseComponent implements OnInit {
 
   public description = '';
   public sum = 0;
+
+  public selectedExpense: Expense = {
+    description: '',
+    sum: 0,
+  };
 
   ngOnInit() {
     this.refreshExpenses();
@@ -81,6 +88,14 @@ export class ExpenseComponent implements OnInit {
   clearFields() {
     this.description = '';
     this.sum = 0;
+  }
+
+  selectExpense(expense: ExpenseRaw) {
+    this.router.navigateByUrl(`/${expense._id}`, {
+      state: {
+        expense: expense,
+      },
+    });
   }
 
   openEditDialog(element: ExpenseRaw) {

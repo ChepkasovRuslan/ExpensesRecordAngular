@@ -55,7 +55,10 @@ main {
 }
 
 .clickable {
+  cursor: pointer;
+}
+
+.refresh-image {
   margin-top: 40px;
   margin-left: 20px;
-  cursor: pointer;
 }
