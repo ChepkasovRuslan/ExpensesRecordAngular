@@ -4,12 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, of } from 'rxjs';
 
-import { UpdateExpenseModalComponent } from '../update-expense-modal/update-expense-modal.component';
+import { ExpenseRaw } from 'src/app/interfaces/expense-raw.interface';
+
+import { SnackBarService } from 'src/app/services/snack-bar.service';
+
 import { Expense } from '../../interfaces/expense.interface';
 import { HttpService } from '../../services/http.service';
-import { ExpenseRaw } from 'src/app/interfaces/expense-raw.interface';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
+
 import { DeleteExpenseModalComponent } from '../delete-expense-modal/delete-expense-modal.component';
+import { UpdateExpenseModalComponent } from '../update-expense-modal/update-expense-modal.component';
 
 @Component({
   selector: 'app-expense',
